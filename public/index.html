@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oregonian Scraper</title>
+    <script src="https://kit.fontawesome.com/678e2711b4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-fill bg-info p-4">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" href="./index.html"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="./saved.html"><i class="far fa-newspaper"></i> Saved Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary text-white" id="scrapeArticles"><i class="fas fa-search"></i> Search New Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-danger text-white" href="#"><i class="fas fa-minus-circle"></i> Clear Articles</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron jumbotron-fluid text-center bg-transparent">
+                <div class="container">
+                    <h1 class="display-4"><a href="https://www.oregonlive.com/" class="text-info">The Oregonian</a></h1>
+                    <p class="lead">Checkout the latest articles from <a href="https://www.oregonlive.com/"
+                            class="text-info">The Oregonian.</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <a class="btn btn-primary text-white" href="#"><i class="far fa-newspaper"></i> Save Article</a>
+                    <a class="btn btn-primary text-white" href="#"><i class="far fa-newspaper"></i> Read Article</a>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>Title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
+                            ante."</p>
+                        <footer class="blockquote-footer">Author Name <cite title="Source Title"> Date</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./app.js" type="text/javascript"></script>
+</body>
+
+</html>
