@@ -14,58 +14,67 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost/unit1Populater", { useNewUrlParser: true });
 
-app.get("/scrape", function(req , res) {
-    axios.get("https://www.oregonlive.com/").then(function(response) {
-        var $ = cheerio.load(response.data);
+app.get("/articles", function(req , res) {
+  axios.get("https://www.oregonlive.com/").then(function(response) {
+    var $ = cheerio.load(response.data);
+    var result = [];
+    console.log("var $ is ", $);
+    $("article h2").each(function(i, element) {
+      articleTitle = $(this)
+        .children("a")
+        .text();
+      articleLink = $(this)
+        .children("a") 
+        .attr("href");
 
-        $("article h2").each(function(i, element) {
-            var result = {};
+       result.push(articleTitle, articleLink);
 
-            result.title = $(this).children("a").text();
-            result.link = $(this).children("a").attr("href");
-
-            db.Article.create(result).then(function(dbArticle) {
-                console.log(dbArticle);
-            }).catch(function(err) {
-                console.log(err);
-            });
-        });
+        db.Article.create(result)
+        .then(function(dbArticle) {
+          console.log(dbArticle);
+        })
+        .catch(function(err) {
+          console.log(err);
+      });
     });
+    return result;
+  });
 });
 
-app.get("/articles", function(req, res) {
-    db.Article.find({})
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+// app.get("/articles", function(req, res) {
+//   console.log("route /articles request is ", req);
+//     db.Article.find({})
+//       .then(function(dbArticle) {
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         res.json(err);
+//       });
+//   });
   
-  app.get("/articles/:id", function(req, res) {
-    db.Article.findOne({ _id: req.params.id })
-      .populate("note")
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+//   app.get("/articles/:id", function(req, res) {
+//     db.Article.findOne({ _id: req.params.id })
+//       .populate("note")
+//       .then(function(dbArticle) {
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         res.json(err);
+//       });
+//   });
   
-  app.post("/articles/:id", function(req, res) {
-    db.Note.create(req.body)
-      .then(function(dbNote) {
-        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
-      })
-      .then(function(dbArticle) {
-        res.json(dbArticle);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
-  });
+//   app.post("/articles/:id", function(req, res) {
+//     db.Note.create(req.body)
+//       .then(function(dbNote) {
+//         return db.Article.findOneAndUpdate({ _id: req.params.id }, { articleNote: dbNote._id }, { new: true });
+//       })
+//       .then(function(dbArticle) {
+//         res.json(dbArticle);
+//       })
+//       .catch(function(err) {
+//         res.json(err);
+//       });
+//   });
   
 
 // Start the server

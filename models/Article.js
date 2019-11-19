@@ -3,16 +3,16 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-  title: {
+  articleTitle: {
     type: String,
     required: true
   },
-  link: {
+  articleLink: {
     type: String,
     required: true
   },
   
-  note: {
+  articleNote: {
     type: Schema.Types.ObjectId,
     ref: "Note"
   }
