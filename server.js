@@ -12,24 +12,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/unit1Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/oregonianScraper", { useNewUrlParser: true });
 
 app.get("/articles", function(req , res) {
-  axios.get("https://www.oregonlive.com/").then(function(response) {
-    var $ = cheerio.load(response.data);
+  axios.get("https://www.oregonlive.com/#top_stories").then(function(urlData) {
+    var $ = cheerio.load(urlData.data);
     var result = [];
-    console.log("var $ is ", $);
-    $("article h2").each(function(i, element) {
+    $(".article__details").each(function(i, element) {
       articleTitle = $(this)
-        .children("a")
+        .children("div")
         .text();
       articleLink = $(this)
+        .children("h3")
         .children("a") 
         .attr("href");
+      articleContent = $(this)
+        .children("h3")
+        .text();
+      articleDate = $(this)
+        .children("time")
+        .text();
 
-       result.push(articleTitle, articleLink);
+        console.log("article link & title & content & date ", articleLink, articleTitle || articleContent, articleDate);
+        var record = {articleTitle: articleTitle || articleContent, articleDate: articleDate, articleLink: articleLink}
+       result.push(record);
 
-        db.Article.create(result)
+        db.Article.create(record)
         .then(function(dbArticle) {
           console.log(dbArticle);
         })
@@ -37,7 +45,7 @@ app.get("/articles", function(req , res) {
           console.log(err);
       });
     });
-    return result;
+    res.json(result);
   });
 });
 

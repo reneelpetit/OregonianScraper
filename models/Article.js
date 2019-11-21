@@ -11,6 +11,10 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+
+  articleDate: {
+    type: String
+  },
   
   articleNote: {
     type: Schema.Types.ObjectId,
