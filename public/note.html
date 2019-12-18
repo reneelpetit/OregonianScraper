@@ -17,33 +17,25 @@
                 <li class="nav-item">
                     <a class="nav-link active text-white" href="./index.html"><i class="fas fa-home"></i> Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="./saved.html"><i class="far fa-newspaper"></i> Saved Articles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-primary text-white" href="scrape" id="scrapeArticles"><i class="fas fa-search"></i> Search New Articles</a>
-                </li>
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="jumbotron jumbotron-fluid text-center bg-transparent">
-                <div class="container">
-                    <h1 class="display-4"><a href="https://www.oregonlive.com/" class="text-info">The Oregonian</a></h1>
-                    <p class="lead">Checkout the latest articles from <a href="https://www.oregonlive.com/"
-                            class="text-info">The Oregonian.</a></p>
-                </div>
+            <div class="container border">
+                <h1>Article Notes</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="notesEdit">Type your notes here</label>
+                        <input type="input" class="form-control" id="notesEdit" aria-describedby="notes input"
+                            placeholder="Type your notes here.">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="saveNote">Save changes</button>
+                </form>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card" id="articles">
-                
-            </div>
-        </div>
-    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -54,6 +46,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
     <script src="./app.js" type="text/javascript"></script>
+
 </body>
 
 </html>

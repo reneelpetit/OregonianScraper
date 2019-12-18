@@ -4,19 +4,19 @@ $("#scrapeArticles").on("click", function (event) {
   function printData(data) {
     $("#articles").append(
       "<div class='card-header'>" +
-      "<a class='btn btn-primary text-white' id='save'>" +
+      "<a class='btn btn-primary text-white save' data-title='" + data.articleTitle + "' data-date='" + data.articleDate + "' data-link='" + data.articleLink + "'>" +
       "<i class='far fa-newspaper'></i>" +
       "Save Article</a>" +
-      "<a class='btn btn-primary text-white' id='link' href=" + data.articleLink + ">" +
+      "<a class='btn btn-primary text-white' class='link' href=" + data.articleLink + ">" +
       "<i class='far fa-newspaper'></i>" +
       "Read Article</a>" +
       "</div>" +
 
       "<div class='card-body'>" +
       "<blockquote class='blockquote mb-0'>" +
-      "<p id = 'title'>Title: " + data.articleTitle + "</p>" +
+      "<p class='title'>Title: " + data.articleTitle + "</p>" +
       "<footer class='blockquote-footer'>" +
-      "Date: <cite title='Source Title' id='date'>" +
+      "Date: <cite title='Source Title' class='date'>" +
       data.articleDate + "</cite></footer>" +
       "</blockquote>" +
       "</div>"
@@ -29,35 +29,28 @@ $("#scrapeArticles").on("click", function (event) {
   });
 });
 
-$("#save").on("click", function (event) {
+$("#articles").on("click", ".save", function (event) {
   console.log("save onclick triggered");
   event.preventDefault();
-  var title = $(this).$("#title").val();
+  var title = $(this).data('title');
   console.log("title is ", title);
   $.ajax({
     method: "POST",
     url: "/save",
     data: {
-      articleTitle: $(this).$("#title").val(),
-      articleDate: $(this).$('#date').val(),
-      articleLink: $(this).$("#link").val()
+      articleTitle: $(this).data('title'),
+      articleDate: $(this).data('date'),
+      articleLink: $(this).data('link')
     }
   })
 })
 
-$("#saved").on("click", function (event) {
-  event.preventDefault();
-  function printSaveData(data) {
-    $("#card-body").append(
-      "<ul>" +
-      "<li>" + data.articleTitle + "<button href='addNoteButton' id='"+ data._id + "'>Add Note</button>" +
-      "<button id='" + data._id + "'>Remove from Saved</button></li>" +
-      "</ul>"
-    )
-  }
-  $.getJSON("/save", function (data) {
-    for (let i = 0; i < data.length; i++) {
-      printSaveData(data[i]);
+$(".addNote").on('click', function(event) {
+  $.ajax({
+    method: 'POST',
+    url: "/note",
+    data: {
+      _id: $(this).data('id')
     }
   })
 })

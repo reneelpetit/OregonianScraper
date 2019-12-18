@@ -42,10 +42,11 @@ app.get("/articles", function (req, res) {
 
 app.post("/save", function (req, res) {
   console.log("inside /save");
+  console.log("artcle title: ", req.body.articleTitle);
   db.Article.create({
-    articleTitle: req.data.articleTitle,
-    articleDate: req.data.articleDate,
-    articleLink: req.data.articleLink
+    articleTitle: req.body.articleTitle,
+    articleDate: req.body.articleDate,
+    articleLink: req.body.articleLink
   })
     .then(function (dbArticle) {
       res.json(dbArticle);
@@ -59,6 +60,19 @@ app.get("/save", function (req, res) {
   db.Article.find({})
   .then(function(savedArticleDB) {
     res.json(savedArticleDB);
+  })
+})
+
+app.get("/note", function (req, res) {
+  db.Note.findOne({ _id: res.body._id })
+  .then(function(savedNote) {
+    res.json(savedNote);
+  })
+})
+
+app.post("/note", function (req, res) {
+  db.Note.create({
+    
   })
 })
 // app.get("/articles", function(req, res) {
