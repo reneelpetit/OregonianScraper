@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var NoteSchema = new Schema({
   noteTitle: String,
-  noteBody: String
+  noteBody: String,
 });
 
 var Note = mongoose.model("Note", NoteSchema);

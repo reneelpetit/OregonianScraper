@@ -45,12 +45,37 @@ $("#articles").on("click", ".save", function (event) {
   })
 })
 
-$(".addNote").on('click', function(event) {
+let articleID="";
+let articleTitle="";
+
+$(".card-body").on('click', ".addNoteButton", function (event) {
+  articleID = event.target.dataset.id;
+  articleTitle = event.target.dataset.title;
+  $(".card-body").empty();
+  $(".card-body").append(
+    "<div class='container border'>" +
+    "<h1>Notes for Article</h1>" +
+    "<form>" +
+    "<div class='form-group'>" +
+    "<label for='notesEdit'>Type your notes here</label>" +
+    "<input type='input' class='form-control' data='notesEdit' aria-describedby='notes input'" +
+    "placeholder='Type your notes here.'>" +
+    "</div>" +
+    "<button type='button' class='btn btn-primary' id='saveNote'>Save changes</button>" +
+    "</form>" +
+    "</div>"
+  )
+})
+
+$("#saveNote").on(('click', function (event) {
+  console.log(".saveNote clicked");
+  console.log($(this).input().val());
   $.ajax({
     method: 'POST',
-    url: "/note",
+    url: '/note',
     data: {
-      _id: $(this).data('id')
+      articleID: articleID,
+      noteBody: $(this).input().val()
     }
   })
-})
+}))

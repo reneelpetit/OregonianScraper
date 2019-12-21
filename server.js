@@ -63,17 +63,30 @@ app.get("/save", function (req, res) {
   })
 })
 
-app.get("/note", function (req, res) {
-  db.Note.findOne({ _id: res.body._id })
-  .then(function(savedNote) {
-    res.json(savedNote);
+app.get("/notepage", function (req, res) {
+  console.log("inside get route /notepage");
+    let data = {
+      articleID: req.body.articleID,
+      articleTitle: req.body.title
+    }
+    console.log("data in route is: ", data);
+    res.json(data);
   })
-})
 
 app.post("/note", function (req, res) {
+  console.log("inside post /note route");
   db.Note.create({
-    
+    noteBody: req.body.noteBody
   })
+        .then(function(dbNote) {
+          return db.Article.findOneAndUpdate({ _id: req.body.articleID }, { articleNote: dbNote._id }, { new: true });
+        })
+        .then(function(dbArticle) {
+          res.json(dbArticle);
+        })
+        .catch(function(err) {
+          res.json(err);
+        });
 })
 // app.get("/articles", function(req, res) {
 //   console.log("route /articles request is ", req);

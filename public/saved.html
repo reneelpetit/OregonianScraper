@@ -42,9 +42,7 @@
                     <h1>Saved Articles</h1>
                 </div>
                 <div class="card-body">
-                    <ul id="listOfNotes">
-                        
-                    </ul>
+                    
                 </div>
             </div>
         </div>
@@ -64,9 +62,9 @@
         function printSaveData(data) {
             console.log(data);
             $(".card-body").append(
-                "<ul>" +
-                "<li>" + data.articleTitle + "<button id='" + data._id + "' class='addNote'>Add Note</button>" +
-                "<button id='" + data._id + "'>Remove from Saved</button></li>" +
+                "<ul class='noteData'>" +
+                "<li>" + data.articleTitle + "<button class='addNoteButton' data-title =" + data.articleTitle + " data-id =" + data._id + ">Add Note</button>" +
+                "<button class='deleteNoteButton'>Remove from Saved</button></li>" +
                 "</ul>"
             )
         }
