@@ -41,8 +41,6 @@ app.get("/articles", function (req, res) {
 });
 
 app.post("/save", function (req, res) {
-  console.log("inside /save");
-  console.log("artcle title: ", req.body.articleTitle);
   db.Article.create({
     articleTitle: req.body.articleTitle,
     articleDate: req.body.articleDate,
@@ -64,12 +62,10 @@ app.get("/save", function (req, res) {
 })
 
 app.get("/notepage", function (req, res) {
-  console.log("inside get route /notepage");
     let data = {
       articleID: req.body.articleID,
       articleTitle: req.body.title
     }
-    console.log("data in route is: ", data);
     res.json(data);
   })
 
@@ -91,7 +87,7 @@ app.post("/note", function (req, res) {
 app.delete("/deletearticle", function(req, res) {
   console.log("inside delete route");
   db.Article.findByIdAndDelete({
-    _id: req.body.articleID
+    _id: req.body.articleID 
   }).then(function(dbDelete) {
     res.json(dbDelete);
   })

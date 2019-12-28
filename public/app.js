@@ -30,7 +30,6 @@ $("#scrapeArticles").on("click", function (event) {
 });
 
 $("#articles").on("click", ".save", function (event) {
-  console.log("save onclick triggered");
   event.preventDefault();
   var title = $(this).data('title');
   console.log("title is ", title);
@@ -69,9 +68,6 @@ $(".card-body").on('click', ".addNoteButton", function (event) {
 
 $(".savedNote").on('click', ".saveNote", function (event) {
   event.preventDefault();
-  console.log(".saveNote clicked");
-  console.log(articleID);
-  console.log(articleTitle);
   let note = ($('.form-control').val());
   $.ajax({
     method: 'POST',
