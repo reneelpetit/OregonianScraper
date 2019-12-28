@@ -81,4 +81,22 @@ $(".savedNote").on('click', ".saveNote", function (event) {
       noteBody: note
     }
   })
+  .then(function() {
+    location.reload();
+  })
+})
+
+$(".card-body").on('click', ".deleteArticleButton", function (event) {
+  articleID = event.target.dataset.id;
+  console.log("delete note button clicked, ", articleID);
+  $.ajax({
+    method: 'DELETE',
+    url: '/deletearticle',
+    data: {
+      articleID: articleID
+    }
+  })
+  .then(function() {
+    location.reload();
+  })
 })

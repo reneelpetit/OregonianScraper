@@ -67,7 +67,7 @@
             $(".card-body").append(
                 "<ul class='noteData'>" +
                 "<li>" + data.articleTitle + "<button class='addNoteButton' data-title =" + data.articleTitle + " data-id =" + data._id + ">Add Note</button>" +
-                "<button class='deleteNoteButton'>Remove from Saved</button></li>" +
+                "<button class='deleteArticleButton' data-id =" + data._id +">Remove from Saved</button></li>" +
                 "</ul>"
             )
         }

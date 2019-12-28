@@ -74,7 +74,6 @@ app.get("/notepage", function (req, res) {
   })
 
 app.post("/note", function (req, res) {
-  console.log("inside post /note route");
   db.Note.create({
     noteBody: req.body.noteBody
   })
@@ -88,40 +87,18 @@ app.post("/note", function (req, res) {
           res.json(err);
         });
 })
-// app.get("/articles", function(req, res) {
-//   console.log("route /articles request is ", req);
-//     db.Article.find({})
-//       .then(function(dbArticle) {
-//         res.json(dbArticle);
-//       })
-//       .catch(function(err) {
-//         res.json(err);
-//       });
-//   });
 
-//   app.get("/articles/:id", function(req, res) {
-//     db.Article.findOne({ _id: req.params.id })
-//       .populate("note")
-//       .then(function(dbArticle) {
-//         res.json(dbArticle);
-//       })
-//       .catch(function(err) {
-//         res.json(err);
-//       });
-//   });
-
-//   app.post("/articles/:id", function(req, res) {
-//     db.Note.create(req.body)
-//       .then(function(dbNote) {
-//         return db.Article.findOneAndUpdate({ _id: req.params.id }, { articleNote: dbNote._id }, { new: true });
-//       })
-//       .then(function(dbArticle) {
-//         res.json(dbArticle);
-//       })
-//       .catch(function(err) {
-//         res.json(err);
-//       });
-//   });
+app.delete("/deletearticle", function(req, res) {
+  console.log("inside delete route");
+  db.Article.findByIdAndDelete({
+    _id: req.body.articleID
+  }).then(function(dbDelete) {
+    res.json(dbDelete);
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+})
 
 
 // Start the server
