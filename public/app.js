@@ -82,6 +82,21 @@ $(".savedNote").on('click', ".saveNote", function (event) {
   })
 })
 
+$(".card-body").on('click', ".seeNotes", function (event) {
+  articleID = event.target.dataset.id;
+  console.log("see notes clicked, " , articleID)
+  $.ajax({
+    method: 'GET',
+    url: '/shownotes',
+    data: {
+      articleID: articleID
+    }
+  })
+  .then(function() {
+    //location.reload();
+  })
+})
+
 $(".card-body").on('click', ".deleteArticleButton", function (event) {
   articleID = event.target.dataset.id;
   console.log("delete note button clicked, ", articleID);

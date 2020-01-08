@@ -58,44 +58,57 @@ app.post("/save", function (req, res) {
 
 app.get("/save", function (req, res) {
   db.Article.find({})
-  .then(function(savedArticleDB) {
-    res.json(savedArticleDB);
-  })
+    .then(function (savedArticleDB) {
+      res.json(savedArticleDB);
+    })
 })
 
 app.get("/notepage", function (req, res) {
-    let data = {
-      articleID: req.body.articleID,
-      articleTitle: req.body.title
-    }
-    res.json(data);
-  })
+  let data = {
+    articleID: req.body.articleID,
+    articleTitle: req.body.title
+  }
+  res.json(data);
+})
+
+app.get("/shownotes", function (req, res) {
+  console.log("article ID on route" , req.body);
+  db.Article.find({ _id: req.body.articleID })
+    .then(function (article) {
+      console.log(article.articleNote);
+      db.Note.find({ _id: article.articleNote })
+        .then(function (note) {
+          console.log(note.noteBody);
+          res.json(note)
+        })
+    })
+})
 
 app.post("/note", function (req, res) {
   db.Note.create({
     noteBody: req.body.noteBody
   })
-        .then(function(dbNote) {
-          return db.Article.findOneAndUpdate({ _id: req.body.articleID }, { articleNote: dbNote._id }, { new: true });
-        })
-        .then(function(dbArticle) {
-          res.json(dbArticle);
-        })
-        .catch(function(err) {
-          res.json(err);
-        });
+    .then(function (dbNote) {
+      return db.Article.findOneAndUpdate({ _id: req.body.articleID }, { articleNote: dbNote._id }, { new: true });
+    })
+    .then(function (dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function (err) {
+      res.json(err);
+    });
 })
 
-app.delete("/deletearticle", function(req, res) {
+app.delete("/deletearticle", function (req, res) {
   console.log("inside delete route");
   db.Article.findByIdAndDelete({
-    _id: req.body.articleID 
-  }).then(function(dbDelete) {
+    _id: req.body.articleID
+  }).then(function (dbDelete) {
     res.json(dbDelete);
   })
-  .catch(function(err) {
-    res.json(err);
-  });
+    .catch(function (err) {
+      res.json(err);
+    });
 })
 
 
